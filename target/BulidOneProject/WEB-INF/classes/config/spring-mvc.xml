@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<beans
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.springframework.org/schema/beans">
+
+    <context:annotation-config/>
+    <!-- 配置扫描的包 -->
+    <context:component-scan base-package="com.big.ssm.controller"/>
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler default-servlet-name="default"/>
+    <!--<mvc:default-servlet-handler default-servlet-name="default"/>-->
+
+    <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
+
+    <!--<mvc:annotation-driven validator="validatorFactoryBean" conversion-service="conversionService" />-->
+    <!--<mvc:annotation-driven validator="validatorFactoryBean" conversion-service="conversionService1" />-->
+
+    <!--先写的先操作-->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+    <!--<bean id="/mybeanname" class="com.big.controller.MyBeanNameController"/>-->
+
+    <!--<bean id="mySimpleUrlController" class="com.big.controller.MySimpleUrlController"/>-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+    <!--<property name="urlMap">-->
+    <!--<map>-->
+    <!--<entry key="simpleurltest" value-ref="mySimpleUrlController"/>-->
+
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--通过url找到类名找到控制器-->
+    <!--<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">-->
+    <!--&lt;!&ndash; 地址类名区分大小写 开头必须小写 &ndash;&gt;-->
+    <!--<property name="caseSensitive" value="true"/>-->
+    <!--</bean>-->
+    <!--<bean class="com.big.controller.MyClassNameController"/>-->
+
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>-->
+    <!-- 访问静态资源 -->
+    <!--<mvc:resources location="/other/" mapping="/other/**"/>-->
+    <!--<mvc:resources location="/image/" mapping="/image/*"/>-->
+
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property value="/WEB-INF/jsps/" name="prefix"/>
+        <property value=".jsp" name="suffix"/>
+        <property name="order" value="2"/>
+    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.XmlViewResolver">-->
+    <!--<property name="location" value="classpath:view.xml"/>-->
+    <!--<property name="order" value="1"/>-->
+    <!--</bean>-->
+    <!--<bean id="jspViewResolver"-->
+          <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass"-->
+                  <!--value="org.springframework.web.servlet.view.JstlView" />-->
+        <!--<property name="prefix" value="/WEB-INF/jsps/" />-->
+        <!--<property name="suffix" value=".jsp" />-->
+    <!--</bean>-->
+
+    <!--freemarker模板解析器-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value="fn_"/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="1"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!--指定模板路径-->
+        <property name="templateLoaderPath" value="/WEB-INF/template"/>
+        <!--指定默认编码格式-->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!--静态资源-->
+    <mvc:resources location="/staticfile/" mapping="/**"/>
+    <!--<mvc:resources location="/csses/" mapping="/**"/>-->
+    <!--<mvc:resources location="/htmls/" mapping="/**"/>-->
+    <!--<mvc:resources location="/jses/" mapping="/**"/>-->
+
+    <!-- 国际化 -->
+    <!-- 校验错误信息配置文件 -->
+    <!--<bean id="validationSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+        <!--<property name="basename" value="classpath:message"/>-->
+        <!--<property name="defaultEncoding" value="utf-8"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;配置校验器&ndash;&gt;-->
+    <!--&lt;!&ndash; 注解式校验 &ndash;&gt;-->
+    <!--<bean id="validatorFactoryBean"-->
+          <!--class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+        <!--&lt;!&ndash;校验器，使用hibernate校验器&ndash;&gt;-->
+        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
+        <!--&lt;!&ndash;指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下面的ValidationMessages.properties文件&ndash;&gt;-->
+        <!--<property name="validationMessageSource" ref="messageSource"/>-->
+    <!--</bean>-->
+
+    <!--拦截器-->
+    <!--<mvc:interceptors>-->
+    <!--<mvc:interceptor>-->
+    <!--<mvc:mapping path="/**"/>-->
+    <!--<bean class="com.big.interceptor.TeacherInterceptor"/>-->
+    <!--</mvc:interceptor>-->
+    <!--<mvc:interceptor>-->
+    <!--<mvc:mapping path="/**"/>-->
+    <!--<bean class="com.big.interceptor.AllInterceptor"/>-->
+    <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" >-->
+        <!--<property name="cookieMaxAge" value="3600"/>-->
+        <!--<property name="defaultLocale" value="en_US"/>-->
+    <!--</bean>-->
+    <!--转换器-->
+    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">-->
+        <!--<property name="converters">-->
+            <!--<list>-->
+                <!--<bean class="com.big.Util.MyUserConvert"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="conversionService1" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+        <!--<property name="formatters">-->
+            <!--<list>-->
+                <!--<bean class="com.big.Util.MyUserFormatter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean name="customEditorConfigurer"-->
+    <!--class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+    <!--<property name="customEditors">-->
+    <!--<map>-->
+    <!--<entry key="com.big.pojo.User" value="com.big.Util.MyDateEditor"/>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--国际化资源文件配置-->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+        <!--<property name="basenames">-->
+            <!--<list>-->
+                <!--<value>common/message</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="useCodeAsDefaultMessage" value="true"/>-->
+    <!--</bean>-->
+
+    <!--<mvc:interceptors>-->
+        <!--&lt;!&ndash;国际化操作拦截器如果采用基于（请求/Session/Cookie）则必需配置&ndash;&gt;-->
+        <!--<bean id="localeChangeInterceptor"-->
+              <!--class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">-->
+            <!--<property name="paramName" value="lang"/>-->
+        <!--</bean>-->
+    <!--</mvc:interceptors>-->
+
+    <!-- 配置SessionLocaleResolver用于将Locale对象存储于Session中供后续使用 -->
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" >-->
+        <!--<property name="cookieMaxAge" value="3600"/>-->
+        <!--<property name="defaultLocale" value="en_US"/>-->
+    <!--</bean>-->
+
+    <!--springmvc异常处理-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+        <!--&lt;!&ndash; 定义默认的异常处理页面 &ndash;&gt;-->
+        <!--<property name="defaultErrorView" value="myerror"/>-->
+        <!--&lt;!&ndash; 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception &ndash;&gt;-->
+        <!--<property name="exceptionAttribute" value="ex"/>-->
+        <!--&lt;!&ndash; 定义需要特殊处理的异常，这是重要点 &ndash;&gt;-->
+        <!--<property name="exceptionMappings">-->
+            <!--<props>-->
+                <!--<prop key="com.big.exception.MyException">myerror</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+</beans>
